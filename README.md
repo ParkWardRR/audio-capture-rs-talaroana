@@ -5,6 +5,9 @@
 ![Status](https://img.shields.io/badge/Status-Production_Ready-brightgreen.svg)
 ![CI](https://github.com/USER/audio-capture-rs-talaroana/actions/workflows/ci.yml/badge.svg)
 
+## Release Status
+This repository is fully prepared for public release. CI/CD pipelines, exhaustive fuzzing, and extensive benchmarking have been heavily integrated to guarantee production-ready stability.
+
 ## Overview
 Zero-dependency Rust library for system-level audio capture. Uses raw CoreAudio (macOS) and PipeWire (Linux) backends for ultra-low latency.
 
