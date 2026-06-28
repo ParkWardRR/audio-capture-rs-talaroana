@@ -1,0 +1,1 @@
+/Users/twesh/Antigravity/spinoffs/audio-capture-rs-talaroana/target/debug/libaudio_capture_rs_talaroana.rlib: /Users/twesh/Antigravity/spinoffs/audio-capture-rs-talaroana/src/coreaudio.rs /Users/twesh/Antigravity/spinoffs/audio-capture-rs-talaroana/src/lib.rs
