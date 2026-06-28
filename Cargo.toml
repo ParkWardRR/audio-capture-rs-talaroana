@@ -6,6 +6,13 @@ description = "Zero-dependency cross-platform audio capture library"
 license = "BlueOak-1.0.0"
 
 [dependencies]
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "capture_bench"
+harness = false
 libc = "0.2"
 
 [target.'cfg(target_os = "macos")'.dependencies]

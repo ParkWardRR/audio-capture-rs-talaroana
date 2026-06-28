@@ -17,10 +17,10 @@ pub mod pipewire_capture;
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(C)]
 pub enum SampleFormat {
-    S16LE,  // 16-bit signed little-endian
-    S24LE,  // 24-bit signed little-endian (packed)
-    S32LE,  // 32-bit signed little-endian
-    F32LE,  // 32-bit float little-endian
+    S16LE, // 16-bit signed little-endian
+    S24LE, // 24-bit signed little-endian (packed)
+    S32LE, // 32-bit signed little-endian
+    F32LE, // 32-bit float little-endian
 }
 
 /// Audio capture configuration.
@@ -97,12 +97,12 @@ mod tests {
         assert_eq!(config.format, SampleFormat::S16LE);
         assert_eq!(config.buffer_frames, 352);
     }
-    
+
     // We cannot reliably test CoreAudio in CI without hardware access,
     // so we just test that the trait is object-safe and backend creates.
     #[test]
     fn test_create_backend() {
-        let mut backend = create_backend();
+        let backend = create_backend();
         let sources = backend.list_sources();
         // Just ensuring it doesn't crash. Sources might be empty in CI.
         let _ = sources.len();

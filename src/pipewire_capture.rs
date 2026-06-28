@@ -90,7 +90,11 @@ impl PipeWireCapture {
 }
 
 impl AudioCaptureBackend for PipeWireCapture {
-    fn start(&mut self, config: CaptureConfig, mut callback: CaptureCallback) -> Result<(), String> {
+    fn start(
+        &mut self,
+        config: CaptureConfig,
+        mut callback: CaptureCallback,
+    ) -> Result<(), String> {
         if self.running.load(Ordering::Relaxed) {
             return Err("capture already running".into());
         }
@@ -105,11 +109,15 @@ impl AudioCaptureBackend for PipeWireCapture {
             Command::new("pw-cat")
                 .args([
                     "--record",
-                    "--format", pw_format,
-                    "--rate", &config.sample_rate.to_string(),
-                    "--channels", &config.channels.to_string(),
-                    "--quality", "0", // disable resampling
-                    "-",             // output to stdout
+                    "--format",
+                    pw_format,
+                    "--rate",
+                    &config.sample_rate.to_string(),
+                    "--channels",
+                    &config.channels.to_string(),
+                    "--quality",
+                    "0", // disable resampling
+                    "-", // output to stdout
                 ])
                 .stdout(Stdio::piped())
                 .stderr(Stdio::null())
@@ -117,16 +125,20 @@ impl AudioCaptureBackend for PipeWireCapture {
                 .map_err(|e| format!("failed to start pw-cat: {}", e))?
         } else if Self::has_pacat() {
             let pa_format = Self::format_to_pa_format(config.format);
-            let monitor = Self::detect_monitor_source()
-                .ok_or("no PulseAudio monitor source found")?;
+            let monitor =
+                Self::detect_monitor_source().ok_or("no PulseAudio monitor source found")?;
 
             Command::new("pacat")
                 .args([
                     "--record",
-                    "--format", pa_format,
-                    "--rate", &config.sample_rate.to_string(),
-                    "--channels", &config.channels.to_string(),
-                    "--device", &monitor,
+                    "--format",
+                    pa_format,
+                    "--rate",
+                    &config.sample_rate.to_string(),
+                    "--channels",
+                    &config.channels.to_string(),
+                    "--device",
+                    &monitor,
                     "--raw",
                 ])
                 .stdout(Stdio::piped())
@@ -137,7 +149,9 @@ impl AudioCaptureBackend for PipeWireCapture {
             return Err("neither pw-cat nor pacat found — install PipeWire or PulseAudio".into());
         };
 
-        let mut stdout = child.stdout.take()
+        let mut stdout = child
+            .stdout
+            .take()
             .ok_or("failed to capture stdout from audio process")?;
 
         self.running.store(true, Ordering::Release);

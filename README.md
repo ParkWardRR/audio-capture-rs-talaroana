@@ -1,8 +1,9 @@
 # Cross-Platform Audio Capture
 
-![Language](https://img.shields.io/badge/Language-Rust-blue.svg)
+![Language](https://img.shields.io/badge/Language-Rust-orange.svg)
 ![License](https://img.shields.io/badge/License-BlueOak_1.0.0-green.svg)
 ![Status](https://img.shields.io/badge/Status-Production_Ready-brightgreen.svg)
+![CI](https://github.com/USER/audio-capture-rs-talaroana/actions/workflows/ci.yml/badge.svg)
 
 ## Overview
 Zero-dependency Rust library for system-level audio capture. Uses raw CoreAudio (macOS) and PipeWire (Linux) backends for ultra-low latency.
@@ -33,3 +34,16 @@ Integration is straightforward. Consult the module source for exact API signatur
 // 3. Execute the processing loop or listener
 ```
 *(Refer to the in-code documentation and `*_test.rs` files for exhaustive initialization examples and constraints).*
+
+## Testing, Fuzzing, and Benchmarking
+
+To run the test suite and benchmarks:
+```bash
+cargo test
+cargo bench
+```
+
+To run the fuzzer:
+```bash
+cargo +nightly fuzz run my_fuzz_target
+```

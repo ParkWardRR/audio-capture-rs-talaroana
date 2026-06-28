@@ -24,7 +24,6 @@ type AudioDeviceID = u32;
 const K_AUDIO_OUTPUT_UNIT_PROPERTY_ENABLE_IO: u32 = 2003;
 const K_AUDIO_UNIT_PROPERTY_STREAM_FORMAT: u32 = 8;
 const K_AUDIO_OUTPUT_UNIT_PROPERTY_CURRENT_DEVICE: u32 = 2000;
-const K_AUDIO_UNIT_PROPERTY_SET_RENDER_CALLBACK: u32 = 23;
 const K_AUDIO_UNIT_SCOPE_INPUT: u32 = 1;
 const K_AUDIO_UNIT_SCOPE_OUTPUT: u32 = 0;
 const K_AUDIO_UNIT_SCOPE_GLOBAL: u32 = 0;
@@ -114,8 +113,8 @@ struct AudioObjectPropertyAddress {
 
 /// Render callback data passed to CoreAudio's input callback.
 struct CallbackData {
-    callback: CaptureCallback,
-    format: CaptureConfig,
+    _callback: CaptureCallback,
+    _format: CaptureConfig,
 }
 
 /// CoreAudio capture backend.
@@ -128,6 +127,12 @@ pub struct CoreAudioCapture {
 // We ensure it's only accessed from the thread that created it or
 // from CoreAudio's callback thread (which is explicitly thread-safe).
 unsafe impl Send for CoreAudioCapture {}
+
+impl Default for CoreAudioCapture {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 impl CoreAudioCapture {
     pub fn new() -> Self {
@@ -183,7 +188,7 @@ impl CoreAudioCapture {
             ),
         };
 
-        let bytes_per_sample = (bits + 7) / 8;
+        let bytes_per_sample = bits.div_ceil(8);
         let bytes_per_frame = bytes_per_sample * config.channels;
 
         AudioStreamBasicDescription {
@@ -208,8 +213,8 @@ impl AudioCaptureBackend for CoreAudioCapture {
 
         // Find the HAL output component (used for capture despite the name).
         let desc = AudioComponentDescription {
-            component_type: 0x61756F75, // 'auou' kAudioUnitType_Output
-            component_sub_type: 0x6168616C, // 'ahal' kAudioUnitSubType_HALOutput
+            component_type: 0x61756F75,         // 'auou' kAudioUnitType_Output
+            component_sub_type: 0x6168616C,     // 'ahal' kAudioUnitSubType_HALOutput
             component_manufacturer: 0x6170706C, // 'appl'
             component_flags: 0,
             component_flags_mask: 0,
@@ -296,8 +301,8 @@ impl AudioCaptureBackend for CoreAudioCapture {
 
         // Store callback data.
         let cb_data = Arc::new(Mutex::new(CallbackData {
-            callback,
-            format: config,
+            _callback: callback,
+            _format: config,
         }));
         self.callback_data = Some(cb_data.clone());
 
