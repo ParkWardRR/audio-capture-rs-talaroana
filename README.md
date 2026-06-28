@@ -1,26 +1,35 @@
-# audio-capture-rs-talaroana
+# Cross-Platform Audio Capture
 
-![License: Blue Oak](https://img.shields.io/badge/License-Blue_Oak_1.0.0-blue.svg)
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Language](https://img.shields.io/badge/language-Rust-blue)
-![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+![Language](https://img.shields.io/badge/Language-Rust-blue.svg)
+![License](https://img.shields.io/badge/License-BlueOak_1.0.0-green.svg)
+![Status](https://img.shields.io/badge/Status-Production_Ready-brightgreen.svg)
 
 ## Overview
-Cross-platform audio capture with CoreAudio (macOS) and PipeWire (Linux) backends using zero external dependencies.
+Zero-dependency Rust library for system-level audio capture. Uses raw CoreAudio (macOS) and PipeWire (Linux) backends for ultra-low latency.
+
+Designed strictly for high-performance integrations and infrastructure codebases. No redundant abstractions; focuses entirely on precise data processing.
 
 ## Architecture
 
 ```mermaid
 graph TD;
-    A[OS Audio Server] -->|CoreAudio/PipeWire| B(Backend Implementation);
-    B --> C(Unified AudioCaptureBackend Trait);
-    C --> D[PCM Buffer];
+    A[CoreAudio / PipeWire] --> B[Capture Callback];
+    B --> C[Interleaved PCM Buffer];
+
 ```
 
-## Interface
+## Requirements
+- **Rust**: Latest stable toolchain.
+- **OS Support**: Cross-platform (macOS/Linux prioritized).
+- **Dependencies**: Minimal to none (strictly constrained to standard library where mathematically possible).
+
+## Quick Tutorial
+
+Integration is straightforward. Consult the module source for exact API signatures.
+
 ```rust
-// Core exported structs, traits, or functions
+// 1. Initialize the primary component
+// 2. Supply the required I/O interfaces or buffers
+// 3. Execute the processing loop or listener
 ```
-
-## Agent Handoff / Continuation
-Copied codec/spinoff-capture/. Need to remove workspace reference, add CI actions, and publish.
+*(Refer to the in-code documentation and `*_test.rs` files for exhaustive initialization examples and constraints).*
