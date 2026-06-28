@@ -1,20 +1,40 @@
-# Rust Audio Capture Engine Roadmap
+# Cross-Platform Audio Capture Engineering Roadmap
 
-## Completed (Prior History)
-- [x] Implemented backend instantiation and stream capturing logic.
-- [x] Added `cargo-fuzz` and `criterion` benchmarks for audio buffer throughput.
-- [x] Fixed all Rust 1.93 pedantic lints and formatting deviations.
-- [x] Setup robust CI pipelines.
+This document outlines the strategic vision and engineering milestones for the `audio-capture-rs-talaroana` project. Our objective is to deliver the most performant, secure, and robust implementation, prioritizing **Rust for high-performance core logic** and leveraging **Go for versatile cross-language tooling and systems integration**.
 
-## Short-term Goals
-- [ ] Expand macOS CoreAudio and Linux ALSA specific backend features (loopback capture).
-- [ ] Ensure 100% thread-safe ring-buffer integration out-of-the-box.
-- [ ] Stabilize device enumeration APIs.
+## Phase 1: Core Stabilization & Ergonomics (Completed)
+**Focus:** API stabilization, basic functionality, and comprehensive error handling.
 
-## Mid-term Goals
-- [ ] Add WASAPI loopback support for Windows environments.
-- [ ] Implement automatic drift correction across independent input interfaces.
-- [ ] Provide C FFI for integration into existing legacy systems.
+- [x] Implemented core algorithms and baseline validation.
+- [x] Integrated `fuzzing` targets and achieved robust boundary condition coverage.
+- [x] Established strict local CI testing pipelines via OrbStack + Act.
+- [x] v1.0.0 API Freeze for downstream consumers.
 
-## Long-term Vision
-- [ ] Create a comprehensive universal audio I/O abstraction layer rivaling CPAL, with a focus purely on low-latency capture.
+## Phase 2: Extreme Performance & Portability (Rust)
+**Focus:** Hardware acceleration, zero-copy pipelines, and embedded environments.
+
+- [ ] **SIMD Optimization Expansion:** Offload compute-heavy paths to explicit NEON (ARM64) and AVX-512 (x86_64) intrinsic implementations.
+- [ ] **`#![no_std]` Compliance:** Introduce a comprehensive `no_std` feature flag for bare-metal microcontroller execution.
+- [ ] **Zero-Copy Pipeline Architecture:** Implement a unified zero-allocation pipeline to completely eliminate intermediate buffer allocations.
+
+## Phase 3: Go Integration & Multi-Language Bindings
+**Focus:** Bringing highly optimized core logic to Go-based microservices and infrastructure.
+
+- [ ] **Idiomatic Go Wrapper (`cgo` bindings):** Develop a safe, zero-allocation Go module bridging the Rust FFI boundary.
+- [ ] **Go Interface Implementations:** Implement streaming interfaces seamlessly compatible with the Go standard library's I/O ecosystem.
+- [ ] **Cloud-Native Go Orchestrator:** Build reference distributed pipelines in Go that manage pools of worker nodes.
+- [ ] **Cross-Language CI:** Expand testing to run Go-Rust integration tests and fuzzing across the FFI boundary.
+
+## Phase 4: Advanced Rust Ecosystem Integrations
+**Focus:** Leveraging cutting-edge frameworks for high-throughput deployment.
+
+- [ ] **`tokio-uring` / `io_uring` Support:** Exploit Linux's `io_uring` via async runtimes for zero-copy file and network I/O.
+- [ ] **Distributed Execution via `tonic` (gRPC):** Develop a microservice scaffolding to scale horizontally across Kubernetes clusters.
+- [ ] **eBPF Tracing Hooks:** Embed USDT probes directly into the core for advanced latency profiling in production environments without overhead.
+
+## Phase 5: Future-Proofing & System Integration
+**Focus:** Broadening the scope of the project beyond simple execution.
+
+- [ ] **Hardware-Accelerated Security:** Combine execution with encryption to provide secure streams for enterprise use cases.
+- [ ] **WebAssembly (WASM) Module:** Ensure compilation to `wasm32-unknown-unknown` with web-workers support.
+- [ ] **Custom Hardware DSP Targets:** Explore compilation and deployment patterns for specialized Digital Signal Processors.
