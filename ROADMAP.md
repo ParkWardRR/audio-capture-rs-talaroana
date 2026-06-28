@@ -1,27 +1,20 @@
-# Engineering Roadmap
+# Rust Audio Capture Engine Roadmap
 
 ## Completed (Prior History)
-- [x] Initial implementation of core algorithms and architectural layout.
-- [x] 100% test coverage across boundary conditions and edge cases.
-- [x] Setup and execution of exhaustive Fuzz testing to guarantee memory safety and stability.
-- [x] Implementation of Performance Benchmarks (e.g. `criterion`, `go test -bench`).
-- [x] CI/CD pipeline establishment via GitHub Actions.
-- [x] Strict linting and idiomatic code quality baseline (e.g. `clippy`, `go vet`).
-- [x] Basic documentation and README overhaul.
+- [x] Implemented backend instantiation and stream capturing logic.
+- [x] Added `cargo-fuzz` and `criterion` benchmarks for audio buffer throughput.
+- [x] Fixed all Rust 1.93 pedantic lints and formatting deviations.
+- [x] Setup robust CI pipelines.
 
 ## Short-term Goals
-- [ ] Finalize 1.0.0 API freeze and ensure backward compatibility going forward.
-- [ ] Establish community guidelines, `CONTRIBUTING.md`, and issue templates.
-- [ ] Expand inline documentation with advanced real-world integration examples and tutorials.
-- [ ] Refactor internal error handling (e.g. typed errors) where legacy fallbacks still exist.
+- [ ] Expand macOS CoreAudio and Linux ALSA specific backend features (loopback capture).
+- [ ] Ensure 100% thread-safe ring-buffer integration out-of-the-box.
+- [ ] Stabilize device enumeration APIs.
 
 ## Mid-term Goals
-- [ ] Explore zero-copy I/O capabilities to aggressively reduce heap allocations.
-- [ ] Add cross-platform CI builds for niche architectures (e.g., specific ARM/MIPS devices).
-- [ ] Conduct a formal third-party security and quality audit.
-- [ ] Introduce feature flags or modular interfaces for heavily customized downstream consumption.
+- [ ] Add WASAPI loopback support for Windows environments.
+- [ ] Implement automatic drift correction across independent input interfaces.
+- [ ] Provide C FFI for integration into existing legacy systems.
 
 ## Long-term Vision
-- [ ] Support for hardware-accelerated offloading (e.g., DSP/FPGA bindings) where applicable.
-- [ ] Seamless integration into larger framework ecosystems (e.g. Homebridge/Home Assistant plugins).
-- [ ] Stabilize C FFI bindings for cross-language utilization without overhead.
+- [ ] Create a comprehensive universal audio I/O abstraction layer rivaling CPAL, with a focus purely on low-latency capture.
