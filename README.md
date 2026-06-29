@@ -5,16 +5,12 @@
 ![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)
 ![CI](https://img.shields.io/badge/CI-Passing-brightgreen.svg)
 ![Platform](https://img.shields.io/badge/Platform-macOS_%7C_Linux-lightgrey.svg)
-
-> [!NOTE]
-> Tested extensively with rigorous benchmarking and comprehensive CI pipelines to guarantee stability for mission-critical, low-latency audio applications.
-
+ 
 ## Overview
 
 A zero-dependency, ultra-low latency Rust library for system-level audio capture. This library leverages raw CoreAudio on macOS and PipeWire on Linux to provide developers with direct, hardware-level access to audio streams.
 
-> [!IMPORTANT]
-> **Design Philosophy**: Built strictly for high-performance integrations and infrastructure codebases. It contains no redundant abstractions and focuses entirely on precise, zero-allocation data processing.
+ 
 
 ## Architecture
 
