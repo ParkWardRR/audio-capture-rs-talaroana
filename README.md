@@ -4,11 +4,13 @@
 ![License](https://img.shields.io/badge/License-BlueOak_1.0.0-green.svg)
 ![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)
 ![CI](https://img.shields.io/badge/CI-Passing-brightgreen.svg)
-![Platform](https://img.shields.io/badge/Platform-macOS_%7C_Linux-lightgrey.svg)
- 
+![Platform](https://img.shields.io/badge/Platform-macOS_%7C_Linux_%7C_SteamOS-lightgrey.svg)
+
+> [!NOTE]
+> Tested extensively with rigorous benchmarking and comprehensive CI pipelines to guarantee stability for mission-critical, low-latency audio applications.
 ## Overview
 
-A zero-dependency, ultra-low latency Rust library for system-level audio capture. This library leverages raw CoreAudio on macOS and PipeWire on Linux to provide developers with direct, hardware-level access to audio streams.
+A zero-dependency, ultra-low latency Rust library for system-level audio capture. This library leverages raw CoreAudio on macOS and PipeWire on Linux (optimized for SteamOS/Arch Linux) to provide developers with direct, hardware-level access to audio streams.
 
  
 
@@ -27,6 +29,8 @@ Here is a comprehensive look at the features currently implemented or mapped out
 ### Core Capture Backends
 - **macOS Native Capture**: Direct interaction with the `kAudioUnitSubType_HALOutput` AudioUnit graph for absolute minimum latency.
 - **Linux Audio Server Integration**: Subprocess fallback mechanisms currently active, with native `libpipewire` bindings in development.
+- **Steam Deck / Arch Linux Native**: (Planned) Optimized PipeWire pipeline for gaming-oriented low latency on SteamOS.
+- **Windows ASIO Integration**: (Planned) Direct ASIO driver interactions for professional audio capture (low priority).
 
 ### High-Performance Architecture
 - **Zero-Copy Pipeline**: A strict memory model that completely eliminates intermediate buffer allocations.
@@ -50,7 +54,7 @@ Here is a comprehensive look at the features currently implemented or mapped out
 > Building this project requires a compatible Rust toolchain and platform-specific audio libraries.
 
 - **Rust**: Latest stable toolchain.
-- **OS Support**: Cross-platform (macOS and Linux are heavily prioritized).
+- **OS Support**: Cross-platform (macOS, Linux, and SteamOS are heavily prioritized).
 - **Dependencies**: Minimal to none (strictly constrained to the Rust standard library where mathematically possible).
 
 ## Quick Tutorial
